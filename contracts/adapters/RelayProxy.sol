@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../ownership/Ownable.sol";
 
@@ -11,8 +12,14 @@ contract RelayProxy {
         __destination = _destination;
     }
 
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-    event DestinationChanged(address indexed previousRelay, address indexed newRelay);
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
+    event DestinationChanged(
+        address indexed previousRelay,
+        address indexed newRelay
+    );
 
     /**
      * @dev Transfers ownership of the contract to a new account (`newOwner`).
@@ -25,7 +32,10 @@ contract RelayProxy {
     }
 
     function __setDestination(address newDestination) public onlyOwner {
-        require(newDestination != address(0), "new owner address is the zero address");
+        require(
+            newDestination != address(0),
+            "new owner address is the zero address"
+        );
         emit OwnershipTransferred(__destination, newDestination);
         __destination = newDestination;
     }
@@ -45,7 +55,7 @@ contract RelayProxy {
         _;
     }
 
-    function() payable external {
+    fallback() external payable {
         require(isOwner(), "Relay: caller is not the owner");
         _relay(__destination);
     }
@@ -55,19 +65,31 @@ contract RelayProxy {
             // Copy msg.data. We take full control of memory in this inline assembly
             // block because it will not return to Solidity code. We overwrite the
             // Solidity scratch pad at memory position 0.
-            calldatacopy(0, 0, calldatasize)
+            calldatacopy(0, 0, calldatasize())
 
             // Call the destination.
             // out and outsize are 0 because we don't know the size yet.
-            let result := call(gas, destination, callvalue, 0, calldatasize, 0, 0)
+            let result := call(
+                gas(),
+                destination,
+                callvalue(),
+                0,
+                calldatasize(),
+                0,
+                0
+            )
 
             // Copy the returned data.
-            returndatacopy(0, 0, returndatasize)
+            returndatacopy(0, 0, returndatasize())
 
             switch result
             // call returns 0 on error.
-            case 0 {revert(0, returndatasize)}
-            default {return (0, returndatasize)}
+            case 0 {
+                revert(0, returndatasize())
+            }
+            default {
+                return(0, returndatasize())
+            }
         }
     }
 }

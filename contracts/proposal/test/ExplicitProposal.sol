@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../base/BaseProposal.sol";
 
@@ -60,18 +61,19 @@ contract ExplicitProposal is BaseProposal {
         return _exec;
     }
 
-    function votingStartTime() public view returns (uint256) {
+    function votingStartTime() public view override returns (uint256) {
         return _start;
     }
 
-    function votingMinEndTime() public view returns (uint256) {
+    function votingMinEndTime() public view override returns (uint256) {
         return _minEnd;
     }
 
-    function votingMaxEndTime() public view returns (uint256) {
+    function votingMaxEndTime() public view override returns (uint256) {
         return _maxEnd;
     }
 
-    function execute_delegatecall(address, uint256) external {}
-    function execute_call(uint256) external {}
+    function execute_delegatecall(address, uint256) public pure override {}
+
+    function execute_call(uint256) public pure override {}
 }

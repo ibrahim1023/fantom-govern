@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../PlainTextProposal.sol";
 import "../../governance/Governance.sol";
@@ -7,14 +8,23 @@ import "../../governance/Proposal.sol";
 contract ExecLoggingProposal is PlainTextProposal {
     Proposal.ExecType _exec;
 
-    constructor(string memory v1, string memory v2, bytes32[] memory v3,
-        uint256 v4, uint256 v5, uint256 v6, uint256 v7, uint256 v8, address v9) PlainTextProposal(v1, v2, v3, v4, v5, v6, v7, v8, v9) public {}
+    constructor(
+        string memory v1,
+        string memory v2,
+        bytes32[] memory v3,
+        uint256 v4,
+        uint256 v5,
+        uint256 v6,
+        uint256 v7,
+        uint256 v8,
+        address v9
+    ) public PlainTextProposal(v1, v2, v3, v4, v5, v6, v7, v8, v9) {}
 
     function setOpinionScales(uint256[] memory v) public {
         _opinionScales = v;
     }
 
-    function pType() public view returns (uint256) {
+    function pType() public pure override returns (uint256) {
         return 15;
     }
 
@@ -26,7 +36,7 @@ contract ExecLoggingProposal is PlainTextProposal {
         _exec = __exec;
     }
 
-    function cancel(uint256 myID, address govAddress) public {
+    function cancel(uint256 myID, address govAddress) public override {
         Governance gov = Governance(govAddress);
         gov.cancelProposal(myID);
     }
@@ -36,19 +46,26 @@ contract ExecLoggingProposal is PlainTextProposal {
     address public executedAs;
     uint256 public executedOption;
 
-    function executeNonDelegateCall(address _executedAs, address _executedMsgSender, uint256 optionID) public {
+    function executeNonDelegateCall(
+        address _executedAs,
+        address _executedMsgSender,
+        uint256 optionID
+    ) public {
         executedAs = _executedAs;
         executedMsgSender = _executedMsgSender;
         executedCounter += 1;
         executedOption = optionID;
     }
 
-    function execute_delegatecall(address selfAddr, uint256 optionID) external {
+    function execute_delegatecall(address selfAddr, uint256 optionID)
+        public
+        override
+    {
         ExecLoggingProposal self = ExecLoggingProposal(selfAddr);
         self.executeNonDelegateCall(address(this), msg.sender, optionID);
     }
 
-    function execute_call(uint256 optionID) external {
+    function execute_call(uint256 optionID) public override {
         executeNonDelegateCall(address(this), msg.sender, optionID);
     }
 }

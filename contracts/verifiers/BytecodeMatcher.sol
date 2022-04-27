@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../common/GetCode.sol";
 import "../governance/Proposal.sol";
@@ -17,12 +18,26 @@ contract BytecodeMatcher is IProposalVerifier, Initializable {
     }
 
     // verifyProposalParams checks proposal code and parameters
-    function verifyProposalParams(uint256, Proposal.ExecType, uint256, uint256, uint256[] calldata, uint256, uint256, uint256) external view returns (bool) {
+    function verifyProposalParams(
+        uint256,
+        Proposal.ExecType,
+        uint256,
+        uint256,
+        uint256[] calldata,
+        uint256,
+        uint256,
+        uint256
+    ) external pure override returns (bool) {
         return true;
     }
 
     // verifyProposalContract verifies proposal code from the specified type and address
-    function verifyProposalContract(uint256, address propAddr) external view returns (bool) {
+    function verifyProposalContract(uint256, address propAddr)
+        external
+        view
+        override
+        returns (bool)
+    {
         return propAddr.codeHash() == codeHash;
     }
 }

@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../common/Decimal.sol";
 import "../common/SafeMath.sol";
@@ -10,7 +11,8 @@ import "./Constants.sol";
  * @dev Various constants for governance governance settings
  */
 contract GovernanceSettings is Constants {
-    uint256 constant _proposalFee = _proposalBurntFee + _taskHandlingReward + _taskErasingReward;
+    uint256 constant _proposalFee =
+        _proposalBurntFee + _taskHandlingReward + _taskErasingReward;
     uint256 constant _proposalBurntFee = 50 * 1e18;
     uint256 constant _taskHandlingReward = 40 * 1e18;
     uint256 constant _taskErasingReward = 10 * 1e18;
@@ -18,22 +20,22 @@ contract GovernanceSettings is Constants {
     uint256 constant _maxExecutionPeriod = 3 days;
 
     // @dev proposalFee is the fee for a proposal
-    function proposalFee() public pure returns (uint256) {
+    function proposalFee() public pure virtual returns (uint256) {
         return _proposalFee;
     }
 
     // @dev proposalBurntFee is the burnt part of fee for a proposal
-    function proposalBurntFee() public pure returns (uint256) {
+    function proposalBurntFee() public pure virtual returns (uint256) {
         return _proposalBurntFee;
     }
 
     // @dev taskHandlingReward is a reward for handling each task
-    function taskHandlingReward() public pure returns (uint256) {
+    function taskHandlingReward() public pure virtual returns (uint256) {
         return _taskHandlingReward;
     }
 
     // @dev taskErasingReward is a reward for erasing each task
-    function taskErasingReward() public pure returns (uint256) {
+    function taskErasingReward() public pure virtual returns (uint256) {
         return _taskErasingReward;
     }
 

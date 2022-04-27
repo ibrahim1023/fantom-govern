@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../governance/Proposal.sol";
 
@@ -7,8 +8,20 @@ import "../governance/Proposal.sol";
  */
 interface IProposalVerifier {
     // Verifies proposal parameters with respect to the stored template of same type
-    function verifyProposalParams(uint256 pType, Proposal.ExecType executable, uint256 minVotes, uint256 minAgreement, uint256[] calldata opinionScales, uint256 start, uint256 minEnd, uint256 maxEnd) external view returns (bool);
+    function verifyProposalParams(
+        uint256 pType,
+        Proposal.ExecType executable,
+        uint256 minVotes,
+        uint256 minAgreement,
+        uint256[] calldata opinionScales,
+        uint256 start,
+        uint256 minEnd,
+        uint256 maxEnd
+    ) external view returns (bool);
 
     // Verifies proposal contract of the specified type and address
-    function verifyProposalContract(uint256 pType, address propAddr) external view returns (bool);
+    function verifyProposalContract(uint256 pType, address propAddr)
+        external
+        view
+        returns (bool);
 }

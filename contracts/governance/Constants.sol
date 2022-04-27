@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../common/SafeMath.sol";
 import "../common/Decimal.sol";
@@ -48,11 +49,19 @@ contract StatusConstants {
 contract Constants is StatusConstants {
     using SafeMath for uint256;
 
-    function minVotesAbsolute(uint256 totalWeight, uint256 minVotesRatio) public pure returns (uint256) {
-        return totalWeight * minVotesRatio / Decimal.unit();
+    function minVotesAbsolute(uint256 totalWeight, uint256 minVotesRatio)
+        public
+        pure
+        returns (uint256)
+    {
+        return (totalWeight * minVotesRatio) / Decimal.unit();
     }
 
-    function bytes32ToString(bytes32 _bytes32) public pure returns (string memory) {
+    function bytes32ToString(bytes32 _bytes32)
+        public
+        pure
+        returns (string memory)
+    {
         bytes memory bytesArray = new bytes(32);
         for (uint256 i; i < 32; i++) {
             bytesArray[i] = _bytes32[i];

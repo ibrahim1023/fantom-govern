@@ -4,7 +4,7 @@ const {
     expectRevert,
     time,
     balance,
-} = require('openzeppelin-test-helpers');
+} = require('@openzeppelin/test-helpers');
 const {expect} = require('chai');
 
 const Governance = artifacts.require('UnitTestGovernance');

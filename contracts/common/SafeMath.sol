@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
@@ -54,7 +55,11 @@ library SafeMath {
      *
      * _Available since v2.4.0._
      */
-    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function sub(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         require(b <= a, errorMessage);
         uint256 c = a - b;
 
@@ -112,7 +117,11 @@ library SafeMath {
      *
      * _Available since v2.4.0._
      */
-    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function div(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0, errorMessage);
         uint256 c = a / b;
@@ -149,7 +158,11 @@ library SafeMath {
      *
      * _Available since v2.4.0._
      */
-    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function mod(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         require(b != 0, errorMessage);
         return a % b;
     }

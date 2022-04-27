@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "../model/Governable.sol";
 
@@ -20,15 +21,25 @@ contract UnitTestGovernable is Governable {
         totalStake -= amount;
     }
 
-    function getTotalWeight() external view returns (uint256) {
+    function getTotalWeight() external view override returns (uint256) {
         return totalStake;
     }
 
-    function getReceivedWeight(address addr) external view returns (uint256) {
+    function getReceivedWeight(address addr)
+        external
+        view
+        override
+        returns (uint256)
+    {
         return rcvDelegations[addr];
     }
 
-    function getWeight(address from, address to) external view returns (uint256) {
+    function getWeight(address from, address to)
+        external
+        view
+        override
+        returns (uint256)
+    {
         return delegations[from][to];
     }
 }

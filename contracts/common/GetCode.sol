@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 library GetCode {
     function code(address _addr) internal view returns (bytes memory o_code) {
@@ -9,7 +10,10 @@ library GetCode {
             // by using o_code = new bytes(size)
             o_code := mload(0x40)
             // new "memory end" including padding
-            mstore(0x40, add(o_code, and(add(add(size, 0x20), 0x1f), not(0x1f))))
+            mstore(
+                0x40,
+                add(o_code, and(add(add(size, 0x20), 0x1f), not(0x1f)))
+            )
             // store length in memory
             mstore(o_code, size)
             // actually retrieve the code, this needs assembly
@@ -17,8 +21,10 @@ library GetCode {
         }
     }
 
-    function codeSize(address _addr) internal view returns (uint size) {
-        assembly {size := extcodesize(_addr)}
+    function codeSize(address _addr) internal view returns (uint256 size) {
+        assembly {
+            size := extcodesize(_addr)
+        }
         return size;
     }
 
