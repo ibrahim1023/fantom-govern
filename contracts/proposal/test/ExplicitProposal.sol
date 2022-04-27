@@ -53,11 +53,11 @@ contract ExplicitProposal is BaseProposal {
         _description = v;
     }
 
-    function pType() public view returns (uint256) {
+    function pType() public view override returns (uint256) {
         return _pType;
     }
 
-    function executable() public view returns (Proposal.ExecType) {
+    function executable() public view override returns (Proposal.ExecType) {
         return _exec;
     }
 

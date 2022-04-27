@@ -40,7 +40,7 @@ contract BaseProposal is IProposal {
             );
     }
 
-    function pType() public pure virtual override returns (uint256) {
+    function pType() public view virtual override returns (uint256) {
         require(false, "must be overridden");
         return uint256(StdProposalTypes.NOT_INIT);
     }

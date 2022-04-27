@@ -28,7 +28,7 @@ contract ExecLoggingProposal is PlainTextProposal {
         return 15;
     }
 
-    function executable() public view returns (Proposal.ExecType) {
+    function executable() public view override returns (Proposal.ExecType) {
         return _exec;
     }
 

@@ -5,14 +5,14 @@ import "./BaseProposal.sol";
 import "../../governance/Proposal.sol";
 
 contract NonExecutableProposal is BaseProposal {
-    function pType() public pure virtual override returns (uint256) {
+    function pType() public view virtual override returns (uint256) {
         return uint256(StdProposalTypes.UNKNOWN_NON_EXECUTABLE);
     }
 
     // Returns execution type
     function executable()
         public
-        pure
+        view
         virtual
         override
         returns (Proposal.ExecType)
